@@ -1,11 +1,11 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 namespace KID
 {
     /// <summary>
-    /// ­µ®Ä¨t²Î
+    /// éŸ³æ•ˆç³»çµ±
     /// </summary>
-    /// ­n¨D¤¸¥ó¡G¦b²Ä¤@¦¸®M¥Î¦¹¸}¥»®É·|°õ¦æ
+    /// è¦æ±‚å…ƒä»¶ï¼šåœ¨ç¬¬ä¸€æ¬¡å¥—ç”¨æ­¤è…³æœ¬æ™‚æœƒåŸ·è¡Œ
     [RequireComponent(typeof(AudioSource))]
     public class SoundSystem : MonoBehaviour
     {
@@ -17,12 +17,12 @@ namespace KID
         }
 
         /// <summary>
-        /// ¼½©ñ­µ®Ä
+        /// æ’­æ”¾éŸ³æ•ˆ
         /// </summary>
-        /// <param name="sound">­n¼½©ñªº­µ®Ä</param>
+        /// <param name="sound">è¦æ’­æ”¾çš„éŸ³æ•ˆ</param>
         public void PlaySound(AudioClip sound)
         {
-            // ­µ®Ä¨Ó·½.¼½©ñ¤@¦¸­µ®Ä(­µ®Ä)
+            // éŸ³æ•ˆä¾†æº.æ’­æ”¾ä¸€æ¬¡éŸ³æ•ˆ(éŸ³æ•ˆ)
             aud.PlayOneShot(sound);
         }
     }
