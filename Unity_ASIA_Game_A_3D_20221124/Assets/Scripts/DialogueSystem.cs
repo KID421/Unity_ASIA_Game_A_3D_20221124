@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 namespace KID
 {
@@ -25,6 +27,9 @@ namespace KID
         private GameObject goTriangle;
         #endregion
 
+        private PlayerInput playerInput;
+        private UnityEvent onDialogueFinish;
+
         #region 事件區域
         private void Awake()
         {
@@ -34,14 +39,24 @@ namespace KID
             goTriangle = GameObject.Find("對話完成圖示");
             goTriangle.SetActive(false);
 
+            playerInput = GameObject.Find("PlayerCapsule").GetComponent<PlayerInput>();
+
             StartDialogue(dialogueOpening);
         }
         #endregion
 
-        public void StartDialogue(DialogueData data)
+        /// <summary>
+        /// 開始對話
+        /// </summary>
+        /// <param name="data">要執行的對話資料</param>
+        /// <param name="_onDialogueFinish">對話結束後的事件，可以空值</param>
+        public void StartDialogue(DialogueData data, UnityEvent _onDialogueFinish = null)
         {
+            playerInput.enabled = false;
+
             StartCoroutine(FadeGroup());
             StartCoroutine(TypeEffect(data));
+            onDialogueFinish = _onDialogueFinish;
         }
 
         /// <summary>
@@ -96,6 +111,9 @@ namespace KID
             }
 
             StartCoroutine(FadeGroup(false));
+
+            playerInput.enabled = true;
+            onDialogueFinish?.Invoke();
         }
     }
 }

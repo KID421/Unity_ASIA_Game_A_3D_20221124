@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace KID
 {
@@ -9,6 +10,13 @@ namespace KID
     {
         [SerializeField, Header("對話資料")]
         private DialogueData dataDialogue;
+        [SerializeField, Header("對話結束後的事件")]
+        private UnityEvent onDialogueFinish;
+
+        [SerializeField, Header("啟動道具")]
+        private GameObject propActive;
+        [SerializeField, Header("啟動後的事對話資料")]
+        private DialogueData dataDialogueActive;
 
         private string nameTartget = "PlayerCapsule";
         private DialogueSystem dialogueSystem;
@@ -27,7 +35,15 @@ namespace KID
             if (other.name.Contains(nameTartget))
             {
                 print(other.name);
-                dialogueSystem.StartDialogue(dataDialogue);
+
+                if (propActive == null || propActive.activeInHierarchy)
+                {
+                    dialogueSystem.StartDialogue(dataDialogue, onDialogueFinish);
+                }
+                else
+                {
+                    dialogueSystem.StartDialogue(dataDialogueActive);
+                }
             }
         }
 
@@ -41,6 +57,14 @@ namespace KID
         private void OnTriggerStay(Collider other)
         {
             
+        }
+
+        /// <summary>
+        /// 隱藏物件
+        /// </summary>
+        public void HideObject()
+        {
+            gameObject.SetActive(false);
         }
     }
 }
